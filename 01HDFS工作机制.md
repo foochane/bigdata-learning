@@ -1,5 +1,4 @@
-# bigdata-learning
-bigdata-learning
+
 
 ## 1、什么是大数据
 基本概念
@@ -7,39 +6,40 @@ bigdata-learning
 在互联网技术发展到现今阶段，大量日常、工作等事务产生的数据都已经信息化，人类产生的数据量相比以前有了爆炸式的增长，以前的传统的数据处理技术已经无法胜任，需求催生技术，一套用来处理海量数据的软件工具应运而生，这就是大数据！
 
 处理海量数据的核心技术：
-海量数据存储：分布式
-海量数据运算：分布式
+- 海量数据存储：分布式
+- 海量数据运算：分布式
 
 这些核心技术的实现是不需要用户从零开始造轮子的
 存储和运算，都已经有大量的成熟的框架来用
 
 存储框架：
-HDFS——分布式文件存储系统（HADOOP中的存储框架）
-HBASE——分布式数据库系统
-KAFKA——分布式消息缓存系统(实时流式数据处理场景中应用广泛)
+- HDFS——分布式文件存储系统（HADOOP中的存储框架）
+- HBASE——分布式数据库系统
+- KAFKA——分布式消息缓存系统(实时流式数据处理场景中应用广泛)
 
 运算框架：（要解决的核心问题就是帮用户将处理逻辑在很多机器上并行）
-MAPREDUCE—— 离线批处理/HADOOP中的运算框架
-SPARK —— 离线批处理/实时流式计算
-STORM —— 实时流式计算
+- MAPREDUCE—— 离线批处理/HADOOP中的运算框架
+- SPARK —— 离线批处理/实时流式计算
+- STORM —— 实时流式计算
 
 辅助类的工具（解放大数据工程师的一些繁琐工作）：
-    HIVE —— 数据仓库工具：可以接收sql，翻译成mapreduce或者spark程序运行
-FLUME——数据采集
-SQOOP——数据迁移
-ELASTIC SEARCH —— 分布式的搜索引擎
-.......
+- HIVE —— 数据仓库工具：可以接收sql，翻译成mapreduce或者spark程序运行
+- FLUME——数据采集
+- SQOOP——数据迁移
+- ELASTIC SEARCH —— 分布式的搜索引擎
+- .......
 
 
 换个角度说，大数据是：
-1、有海量的数据
-2、有对海量数据进行挖掘的需求
-3、有对海量数据进行挖掘的软件工具（hadoop、spark、storm、flink、tez、impala......）
+- 1、有海量的数据
+- 2、有对海量数据进行挖掘的需求
+- 3、有对海量数据进行挖掘的软件工具（hadoop、spark、storm、flink、tez、impala......）
 
 
 
 ## 2 大数据在现实生活中的具体应用
 数据处理的最典型应用：公司的产品运营情况分析
+
 例如：https://www.umeng.com/
 
 电商推荐系统：基于海量的浏览行为、购物行为数据，进行大量的算法模型的运算，得出各类推荐结论，以供电商网站页面来为用户进行商品推荐
@@ -120,23 +120,27 @@ export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
 hadoop namenode -format
 ```
-	创建一个全新的元数据存储目录
-	生成记录元数据的文件fsimage
-	生成集群的相关标识：如：集群id——clusterID
+- 创建一个全新的元数据存储目录
+- 生成记录元数据的文件fsimage
+- 生成集群的相关标识：如：集群id——clusterID
 
 然后，启动namenode进程（在hdp-01上）
+
 ```
 hadoop-daemon.sh start namenode
 ```
+
 启动完后，首先用jps查看一下namenode的进程是否存在
 
 然后，在windows中用浏览器访问namenode提供的web端口：50070
 http://hdp-01:50070
 
 然后，启动众datanode们（在任意地方）
+
 ```
 hadoop-daemon.sh start datanode
 ```
+
 查看进程：
 ```
 $ ps -aux | grep 8324
@@ -171,16 +175,18 @@ hdp-04
 
 
 ## 4 客户端的理解
+
 hdfs的客户端有多种形式：
-1、网页形式
-2、命令行形式
-3、客户端在哪里运行，没有约束，只要运行客户端的机器能够跟hdfs集群联网
+- 网页形式
+- 命令行形式
+- 客户端在哪里运行，没有约束，只要运行客户端的机器能够跟hdfs集群联网
 
 文件的切块大小和存储的副本数量，都是由客户端决定！
 所谓的由客户端决定，是通过配置参数来定的
+
 hdfs的客户端会读以下两个参数，来决定切块大小、副本数量：
-切块大小的参数： dfs.blocksize
-副本数量的参数： dfs.replication
+- 切块大小的参数： dfs.blocksize
+- 副本数量的参数： dfs.replication
 
 上面两个参数应该配置在客户端机器的hadoop目录中的hdfs-site.xml中配置
 ```xml
@@ -198,43 +204,59 @@ hdfs的客户端会读以下两个参数，来决定切块大小、副本数量�
 
 ## 5 hdfs命令行客户端的常用操作命令
 0、查看hdfs中的目录信息
+```
 hadoop fs -ls /hdfs路径
+```
 
 1、上传文件到hdfs中
+```
 hadoop fs -put /本地文件  /aaa
 hadoop fs -copyFromLocal /本地文件  /hdfs路径   ##  copyFromLocal等价于 put
-
 hadoop fs -moveFromLocal /本地文件  /hdfs路径  ## 跟copyFromLocal的区别是：从本地移动到hdfs中
+```
 
 2、下载文件到客户端本地磁盘
+```
 hadoop fs -get /hdfs中的路径   /本地磁盘目录
 hadoop fs -copyToLocal /hdfs中的路径 /本地磁盘路径   ## 跟get等价
 hadoop fs -moveToLocal /hdfs路径  /本地路径  ## 从hdfs中移动到本地
-
+```
 
 3、在hdfs中创建文件夹
+```
 hadoop fs -mkdir  -p /aaa/xxx
-
+```
 
 4、移动hdfs中的文件（更名）
+```
 hadoop fs -mv /hdfs的路径  /hdfs的另一个路径
-
+```
 
 5、删除hdfs中的文件或文件夹
+```
 hadoop fs -rm -r /aaa
+```
 
 6、修改文件的权限
+```
 hadoop fs -chown user:group /aaa
 hadoop fs -chmod 700 /aaa
+```
 
 7、追加内容到已存在的文件
+```
 hadoop fs -appendToFile /本地文件   /hdfs中的文件
+```
 
 8、显示文本文件的内容
+```
 hadoop fs -cat /hdfs中的文件
 hadoop fs -tail /hdfs中的文件
+```
 
 补充：hdfs命令行客户端的所有命令列表
+
+```
 Usage: hadoop fs [generic options]
         [-appendToFile <localsrc> ... <dst>]
         [-cat [-ignoreCrc] <src> ...]
@@ -276,8 +298,7 @@ Usage: hadoop fs [generic options]
         [-touchz <path> ...]
         [-truncate [-w] <length> <path> ...]
         [-usage [cmd ...]]
-
- 
+```
 
 ## 6 hdfs的java客户端编程
 

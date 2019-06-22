@@ -23,8 +23,8 @@
 hs_err_pid*
 
 #eclipse相关
-RemoteSystemsTempFiles
-.metadata
+RemoteSystemsTempFiles/
+.metadata/
 .project
-.settings
+.settings/
 .classpath
