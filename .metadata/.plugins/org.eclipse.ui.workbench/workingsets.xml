@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1561164216988_0" label="Window Working Set" name="Aggregate for window 1561164216987"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1561210318574_1" label="02mapreduce" name="02mapreduce"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1561210180527_0" label="Window Working Set" name="Aggregate for window 1561210180527"/>
 </workingSetManager>
