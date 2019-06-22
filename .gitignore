@@ -27,3 +27,10 @@ RemoteSystemsTempFiles/
 /.metadata/
 /.settings/
 /.recommenders/
+
+.lock
+.log
+
+.*
+.settings
+.recommenders
