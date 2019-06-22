@@ -30,7 +30,7 @@ RemoteSystemsTempFiles/
 /.recommenders/
 
 
-.metadata/
-.settings/
-.recommenders/
-
+./.metadata/*
+./.settings/*
+./.recommenders/*
+./RemoteSystemsTempFiles/*
