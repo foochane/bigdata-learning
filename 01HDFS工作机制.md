@@ -303,11 +303,12 @@ Usage: hadoop fs [generic options]
 ## 6 hdfs的java客户端编程
 
 导库：
-
+```
 hadoop-2.7.1\share\hadoop\common\hadoop-common-2.7.1.jar
 hadoop-2.7.1\share\hadoop\common\lib\*
 hadoop-2.7.1\share\hadoop\hdfs\hadoop-hdfs-2.7.1.jar
 hadoop-2.7.1\share\hadoop\hdfs\lib\*
+```
 
 ### 上传文件到hdfs
 
@@ -348,9 +349,9 @@ public class HdfsClient {
 	
 }
 ```
+### 其他操作
 
-
-从hdfs下载到本地windows需要配置HADOOP_HOME,因为下载到本地需要操作本地磁盘，调用的c语言库，windows下需要重新编译hadoop。
+**从hdfs下载到本地windows需要配置HADOOP_HOME,因为下载到本地需要操作本地磁盘，调用的c语言库，windows下需要重新编译hadoop。**
 
 ```
 D:\home\big-data\software\dev\hadoop-2.8.1-windows\hadoop-2.8.1
@@ -360,10 +361,11 @@ D:\home\big-data\software\dev\hadoop-2.8.1-windows\hadoop-2.8.1
 winutils.exe
 hadoop.dll
 ```
-在 C:\Windows\System32 下面 放入   hadoop.dll
 
+在 C:\Windows\System32 下面 放入`hadoop.dll`文件
 
-### 其他操作
+代码：
+
 ```java
 	FileSystem fs = null;
 	
