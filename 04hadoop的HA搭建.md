@@ -21,7 +21,7 @@ hadoop中namenode单点故障的解决：
 
 ### 集群规划：
 |主机名|IP|安装的软件|运行的进程|
-|--|--|--|--|
+|:--|:--|:--|:--|
 |hadoop00|192.168.1.200|jdk、hadoop|NameNode、DFSZKFailoverController(zkfc)|
 |hadoop01|192.168.1.201|jdk、hadoop|NameNode、DFSZKFailoverController(zkfc)|
 |hadoop02|192.168.1.202|jdk、hadoop|ResourceManager|
