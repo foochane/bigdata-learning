@@ -20,10 +20,6 @@ import org.apache.hadoop.mapreduce.Mapper;
  * 
  * hadoop为jdk中的常用基本类型Long String Integer Float等数据类型封住了自己的实现了hadoop序列化接口的类型：LongWritable,Text,IntWritable,FloatWritable
  * 
- * 
- * 
- * 
- * @author ThinkPad
  *
  */
 public class WordcountMapper extends Mapper<LongWritable, Text, Text, IntWritable>{

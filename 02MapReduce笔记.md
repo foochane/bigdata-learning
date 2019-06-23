@@ -138,7 +138,7 @@ hadoop jar 编译好的jar包 [可以带参数]
  
 如果没有配置 mapred-site.xml 文件，提交程序后mapreduce默认在本地运行
  ```
- <!--默认只为local-->
+ <!--默认值为local-->
 <property>
     <name>mapreduce.framework.name</name>
     <value>yarn</value>

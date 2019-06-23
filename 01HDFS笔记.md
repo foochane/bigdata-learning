@@ -552,3 +552,4 @@ secondarynamenode保存元数据文件的目录配置：
 
 
 
+构造数据：while true; do cat a.txt >> b.txt; done
