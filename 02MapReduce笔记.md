@@ -1,7 +1,4 @@
-
-
-
-## 安装yarn集群
+## 1 安装yarn集群
 配置yarn，修改yarn-site.xml文件
 
 ```
@@ -65,9 +62,22 @@ free -m
 ```
 
 
+## 2 代码示例
+
+#### 代码示例1 
+
+Mapreduce程序的3中提交方式：
+- 1 本地windows提交的yarn中运行
+- 2 本地打包，在把jar包放在Linux服务器上，在通过命令运行在yarn上
+- 3 windows本地运行
+
 配置maven
+
 找配置文件：https://search.maven.org/
+
 搜索：hadoop-client
+
+在pom文件中添加如下内容：
 
 ```xml
 <dependency>
@@ -78,7 +88,7 @@ free -m
 ```
 
 
-打包 [选择工程] ---> [run as] -->[Maven install]
+打包流程 [选择工程] ---> [run as] -->[Maven install]
 
 报错：
 ```
@@ -114,18 +124,24 @@ Exception in thread "main" java.lang.IllegalArgumentException: cmdLineSyntax not
   
 运行java程序
  
- java -cp jar包  类名
+使用java命令：
+```
+java -cp jar包  类名
+```
+
+使用hadoop自带命令：
+```
+hadoop jar 编译好的jar包 [可以带参数]
+```
  
- hadoop jar 编译好的jar包
+上述命令会把机器里面，所有的hadoop的jar加到当前路径里面
  
- 会把机器里面，所有的hadoop的jar加到当前路径里面
- 
- 如果没有配置 mapred-site.xml 文件，提交程序后mapreduce默认在本地运行
+如果没有配置 mapred-site.xml 文件，提交程序后mapreduce默认在本地运行
  ```
  <!--默认只为local-->
-         <property>
-                <name>mapreduce.framework.name</name>
-                <value>yarn</value>
-        </property>
+<property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+</property>
 ```
 

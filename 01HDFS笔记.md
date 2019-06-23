@@ -113,13 +113,15 @@ export JAVA_HOME=/root/apps/jdk1.8.0_60
 export HADOOP_HOME=/root/apps/hadoop-2.8.0
 export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
-
+**linux下的环境变量用 `:`分隔开，`$PATH`是前面的系统的环境变量，可以在后面追加自己的环境变量**
 
 首先，初始化namenode的元数据目录
 要在hdp-01上执行hadoop的一个命令来初始化namenode的元数据存储目录
 ```
 hadoop namenode -format
 ```
+这个命令完成的工作如下：
+
 - 创建一个全新的元数据存储目录
 - 生成记录元数据的文件fsimage
 - 生成集群的相关标识：如：集群id——clusterID
@@ -177,7 +179,7 @@ hdp-04
 ## 4 客户端的理解
 
 hdfs的客户端有多种形式：
-- 网页形式
+- 网页形式 （端口号50070）
 - 命令行形式
 - 客户端在哪里运行，没有约束，只要运行客户端的机器能够跟hdfs集群联网
 
@@ -302,7 +304,8 @@ Usage: hadoop fs [generic options]
 
 ## 6 hdfs的java客户端编程
 
-导库：
+在`eclipse`上新建`java`工程，手动导入`jar`包，要导入的`jar`包如下：
+
 ```
 hadoop-2.7.1\share\hadoop\common\hadoop-common-2.7.1.jar
 hadoop-2.7.1\share\hadoop\common\lib\*
@@ -310,10 +313,17 @@ hadoop-2.7.1\share\hadoop\hdfs\hadoop-hdfs-2.7.1.jar
 hadoop-2.7.1\share\hadoop\hdfs\lib\*
 ```
 
-### 上传文件到hdfs
+
+### 代码示例1
+
+>代码功能：从本地上传文件到hdfs，从hdfs下载文件到本地，修改/移动hdfs中文件，hdfs中创建文件夹，查看hdfs文件信息和文件夹信息。
+
+代码目录：com.foochane.hdfsclient
+
+#### 上传文件到hdfs
 
 ```java
-package hdfs01;
+package com.foochane.hdfsclient;
 
 import java.net.URI;
 
@@ -349,7 +359,7 @@ public class HdfsClient {
 	
 }
 ```
-### 其他操作
+#### 其他操作
 
 **从hdfs下载到本地windows需要配置HADOOP_HOME,因为下载到本地需要操作本地磁盘，调用的c语言库，windows下需要重新编译hadoop。**
 
@@ -472,6 +482,23 @@ hadoop.dll
 		fs.close();
 	}
 ```
+
+### 代码示例2
+
+>代码功能：
+定时从本地日志目录下采集日志文件存放到hdfs中。
+
+
+代码： com.foochane.datacollect
+
+
+### 代码示例3
+
+>代码功能： wordcount
+
+代码： com.foochane.wordcount
+
+
 
 
 ## 7 hdfs的核心工作原理

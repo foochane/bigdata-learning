@@ -8,9 +8,9 @@ public class DataCollectMain {
 		
 		Timer timer = new Timer();
 
-		timer.schedule(new CollectTask(), 0, 60*60*1000L);
+		timer.schedule(new CollectTask(), 0, 60*60*1000L); //每隔一小时采集一次
 		
-		timer.schedule(new BackupCleanTask(), 0, 60*60*1000L);
+		timer.schedule(new BackupCleanTask(), 0, 60*60*1000L); //定时清理备份文件
 		
 	}
 	

@@ -4,7 +4,7 @@ import java.util.Properties;
 
 
 /**
- * 鍗曚緥璁捐妯″紡锛屾柟寮忎竴锛? 楗挎眽寮忓崟渚?
+ * 单例设计模式，方式一： 饿汉式单例
  *
  */
 public class PropertyHolderHungery {

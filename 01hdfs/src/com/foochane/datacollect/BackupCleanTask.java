@@ -16,11 +16,11 @@ public class BackupCleanTask extends TimerTask {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH");
 		long now = new Date().getTime();
 		try {
-			// 鎺㈡祴鏈湴澶囦唤鐩綍
+			// 探测本地备份目录
 			File backupBaseDir = new File("d:/logs/backup/");
 			File[] dayBackDir = backupBaseDir.listFiles();
 
-			// 鍒ゆ柇澶囦唤鏃ユ湡瀛愮洰褰曟槸鍚﹀凡瓒?24灏忔椂
+			// 判断备份日期子目录是否已超24小时
 			for (File dir : dayBackDir) {
 				long time = sdf.parse(dir.getName()).getTime();
 				if(now-time>24*60*60*1000L){
