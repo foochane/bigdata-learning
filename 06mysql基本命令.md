@@ -132,6 +132,7 @@ drop database databasename;
 查看端口占用情况：
 ```
 netstat -nalp | grep "3306"
+```
 
 关闭防火墙
 ```
