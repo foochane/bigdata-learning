@@ -876,11 +876,58 @@ where cnts>2;
 
 ### 5.1 数字类型
 
+- `TINYINT` (1-byte signed integer, from -128 to 127)
+- `SMALLINT` (2-byte signed integer, from -32,768 to 32,767)
+
+- `INT/INTEGER` (4-byte signed integer, from -2,147,483,648 to 2,147,483,647)
+
+- `BIGINT` (8-byte signed integer, from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807)
+- `FLOAT` (4-byte single precision floating point number)
+- `DOUBLE` (8-byte double precision floating point number)
+
+示例：
+```sql
+create table t_test(a string ,b int,c bigint,d float,e double,f tinyint,g smallint)
+
+```
+
 ### 5.2 日期类型
+
+- `TIMESTAMP` (Note: Only available starting with Hive 0.8.0)
+- `DATE` (Note: Only available starting with Hive 0.12.0)
+
+示例，假如有以下数据文件：
+```
+1,zhangsan,1985-06-30
+2,lisi,1986-07-10
+3,wangwu,1985-08-09
+```
+那么，就可以建一个表来对数据进行映射
+```sql
+create table t_customer(id int,name string,birthday date)
+row format delimited fields terminated by ',';
+
+```
+然后导入数据
+```sql
+load data local inpath '/root/customer.dat' into table t_customer;
+
+```
+然后，就可以正确查询
+
 
 ### 5.3 字符串类型
 
-### 5.4 布尔类型
+- `STRING`
+- `VARCHAR` (Note: Only available starting with Hive 0.12.0)
+- `CHAR` (Note: Only available starting with Hive 0.13.0)
+
+
+### 5.4 杂类型
+
+- `BOOLEAN`
+- `BINARY` (Note: Only available starting with Hive 0.8.0)
+
 
 ### 5.5 复合类型
 
