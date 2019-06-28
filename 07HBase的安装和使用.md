@@ -1,3 +1,4 @@
+
 ## 1 Hbase基本介绍
 
 `Hbase`是一个分布式数据库,可以提供数据的实时随机读写。
@@ -16,7 +17,8 @@
 `HBASE`相比于其他nosql数据库(`mongodb`、`redis`、`cassendra`、`hazelcast`)的特点：
 因为`Hbase`的表数据存储在`HDFS`文件系统中,所以存储容量可以线性扩展； 数据存储的安全性可靠性极高！
 
-## 2 hbase的表结构
+## 2 Hbase的表结构
+
 |rowkey:行键|base_info|extra_info|
 |:--|:--|:--|
 |001|name:zs,age:22,sex:male|hobbiy:read,addr:beijing|
@@ -28,7 +30,7 @@ hbase的表模型跟mysql之类的关系型数据库的表模型差别巨大
 
 hbase的表模型中有：行的概念；但没有字段的概念
 
-行中存的都是key-value对，每行中的key-value对中的key可以是各种各样，每行中的key-value对的数量也可以是各种各样
+行中存的都是key-value对，每行中的key-value对中的key可以是各种各样的。
 
 hbase表模型的要点
 
@@ -46,21 +48,22 @@ hbase会对插入的数据按顺序存储：
 
 
 
-hbase的表数据类型
+hbase的表数据类型：
 
-hbase中只支持byte[] ,此处的byte[] 包括了： rowkey,key,value,列族名,表名
+hbase中只支持byte[] ,此处的byte[] 包括了： rowkey,key,value,列族名,表名。
+表划分为不同的region。
+
+## 3 Hbase工作机制
 
 
-## 3 hbase工作机制
 
-表划分为不同的`region`，
-![hbase整体工作机制示意图](images/hbase整体工作机制示意图.png)
+![hbase整体工作机制示意图](https://github.com/foochane/bigdata-learning/raw/master/images/hbase整体工作机制示意图.png)
 
 Hbase分布式系统包含两个角色
 - 管理角色：HMaster(一般2台，一台active，一台standby）
 - 数据节点角色：HRegionServer（多台，和datanode在一起）
 
-`Hbase`不做数据处理的话，不需要`yarn`，`yarn``是复制Mapreduce`计算的，`Hbase`只是负责数据管理
+`Hbase`不做数据处理的话，不需要`yarn`，`yarn`是复制Mapreduce计算的，`Hbase`只是负责数据管理
 
 ## 4 Hbase安装
 
@@ -73,9 +76,10 @@ Hbase分布式系统包含两个角色
 ### 4.2 节点安排
 
 各个节点角色分配如下：
+
 |节点|安装的服务|
 |:--|:--|
-|Master|namenode  datanode  regionserver  hmaster  zookeeper|
+|Master |namenode  datanode  regionserver  hmaster  zookeeper|
 |Slave01|datanode  regionserver  zookeeper|
 |Slave02|datanode  regionserver  zookeeper|
 
@@ -91,7 +95,7 @@ export HBASE_MANAGES_ZK=false
 ```
 
 修改hbase-site.xml
-```
+```xml
 <configuration>
 	<!-- 指定hbase在HDFS上存储的路径 -->
 	<property>
@@ -119,7 +123,7 @@ Slave02
 
 修改完成后，将安装文件夹放到三个节点的`/usr/local/bigdata/`目录下
 
-## 6 启动hbase集群
+## 6 启动Hbase集群
 
 先检查`hdfs`和`zookeeper`是否正常启动，
 Master：
@@ -187,7 +191,7 @@ $ bin/hbase-daemon.sh start master
 ```
 新启的这个master会处于backup状态
 
-## 7 启动hbase的命令行客户端
+## 7 启动Hbase的命令行客户端
 
 
 使用命令`hbase shell`
@@ -200,7 +204,7 @@ Hbase> version  // 查看集群版本
 
 
 ##### 问题
-```
+```sh
 ERROR: org.apache.hadoop.hbase.ipc.ServerNotRunningYetException: Server is not running yet
         at org.apache.hadoop.hbase.master.HMaster.checkServiceStarted(HMaster.java:2932)
         at org.apache.hadoop.hbase.master.MasterRpcServices.isMasterRunning(MasterRpcServices.java:1084)
@@ -219,7 +223,7 @@ $ hdfs dfsadmin -safemode leave
 ```
 
 
-## 8 hbase命令行客户端操作
+## 8 Hbase命令行客户端操作
 ### 8.1 建表
 ```
 create 't_user_info','base_info','extra_info'
@@ -228,7 +232,7 @@ create 't_user_info','base_info','extra_info'
 ```
 
 ### 8.2 插入数据：
-```
+```sql
 hbase(main):011:0> put 't_user_info','001','base_info:username','zhangsan'
 0 row(s) in 0.2420 seconds
 
@@ -249,7 +253,7 @@ hbase(main):016:0> put 't_user_info','002','base_info:username','liuyifei'
 ```
 
 ### 8.3 查询数据方式一：scan 扫描
-```
+```sql
 hbase(main):017:0> scan 't_user_info'
 ROW                               COLUMN+CELL                                                                                     
  001                              column=base_info:age, timestamp=1496567924507, value=18                                         
@@ -262,7 +266,7 @@ ROW                               COLUMN+CELL
 ```
 
 ### 8.4 查询数据方式二：get 单行数据
-```
+```sql
 hbase(main):020:0> get 't_user_info','001'
 COLUMN                            CELL                                                                                            
  base_info:age                    timestamp=1496568160192, value=19                                                               
@@ -273,7 +277,7 @@ COLUMN                            CELL
 ```
 
 ### 8.5 删除一个kv数据
-```
+```sql
 hbase(main):021:0> delete 't_user_info','001','base_info:sex'
 0 row(s) in 0.0390 seconds
 
@@ -423,7 +427,8 @@ public void testAlterTable() throws Exception{
 ### 9.2 DML操作
 
 `HBase`的增删改查
-```
+
+```java
 	Connection conn = null;
 	
 	@Before

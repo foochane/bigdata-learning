@@ -1,4 +1,6 @@
-## hadoop的HA机制原理
+
+
+## 1 hadoop的HA机制原理
 
 HA:为了解决hadoop集群但单点故障问题。
 
@@ -6,12 +8,13 @@ hadoop中namenode单点故障的解决：
 - active
 - standby
 
-![](images/hadoop的HA工作机制示意图.png)
+![](https://github.com/foochane/bigdata-learning/raw/master/images/hadoop的HA工作机制示意图.png)
 
 
-## hadoop的HA集群搭建过程
+## 2 前期准备
 
-### 前期准备
+搭建高可用hadoop集群以前默认已经搭建好的普通的分布式集群，确保如下内容已经完成：
+
 - 1.修改Linux主机名
 - 2.修改IP
 - 3.修改主机名和IP的映射关系 /etc/hosts
@@ -19,7 +22,7 @@ hadoop中namenode单点故障的解决：
 - 5.ssh免登陆
 - 6.安装JDK，配置环境变量等
 
-### 集群规划：
+## 3 集群规划
 |主机名|IP|安装的软件|运行的进程|
 |:--|:--|:--|:--|
 |hadoop00|192.168.1.200|jdk、hadoop|NameNode、DFSZKFailoverController(zkfc)|
@@ -32,7 +35,7 @@ hadoop中namenode单点故障的解决：
 |hadoop07|192.168.1.207|jdk、hadoop、zookeeper|DataNode、NodeManager、JournalNode、QuorumPeerMain|
 
 
-### 说明：
+说明：
 1.在hadoop2.0中通常由两个NameNode组成，一个处于active状态，另一个处于standby状态。Active NameNode对外提供服务，而Standby NameNode则不对外提供服务，仅同步active namenode的状态，以便能够在它失败时快速进行切换。
 
 hadoop2.0官方提供了两种HDFS HA的解决方案，一种是NFS，另一种是QJM。这里我们使用简单的QJM。在该方案中，主备NameNode之间通过一组JournalNode同步元数据信息，一条数据只要成功写入多数JournalNode即认为写入成功。通常配置奇数个JournalNode
@@ -41,15 +44,14 @@ hadoop2.0官方提供了两种HDFS HA的解决方案，一种是NFS，另一种�
 
 2.hadoop-2.2.0中依然存在一个问题，就是ResourceManager只有一个，存在单点故障，hadoop-2.6.4解决了这个问题，有两个ResourceManager，一个是Active，一个是Standby，状态由zookeeper进行协调
 
-### 安装步骤：
 
-#### 1.安装配置zooekeeper集群（在hadoop05上）
+## 4 安装配置zooekeeper集群（在hadoop05上）
 
-##### 1.1解压
+### 4.1解压
 ```
 tar -zxvf zookeeper-3.4.5.tar.gz -C /home/hadoop/app/
 ```
-##### 1.2修改配置
+### 4.2修改配置
 ```
 cd /home/hadoop/app/zookeeper-3.4.5/conf/
 cp zoo_sample.cfg zoo.cfg
@@ -69,7 +71,7 @@ server.3=hadoop07:2888:3888
 mkdir /home/hadoop/app/zookeeper-3.4.5/tmp
 echo 1 > /home/hadoop/app/zookeeper-3.4.5/tmp/myid
 ```
-##### 1.3将配置好的zookeeper拷贝到其他节点
+### 4.3将配置好的zookeeper拷贝到其他节点
 
 首先分别在hadoop06、hadoop07根目录下创建一个hadoop目录：mkdir /hadoop
 ```
@@ -84,14 +86,18 @@ hadoop07：
 echo 3 > /home/hadoop/app/zookeeper-3.4.5/tmp/myid
 ```
 
-#### 2.安装配置hadoop集群（在hadoop00上操作）
+## 5 安装配置hadoop集群
+（在hadoop00上操作）
 
-##### 2.1解压
+### 5.1解压
 ```
 tar -zxvf hadoop-2.6.4.tar.gz -C /home/hadoop/app/
+
 ```
 
-##### 2.2配置HDFS（hadoop2.0所有的配置文件都在$HADOOP_HOME/etc/hadoop目录下）
+### 5.2配置HDFS
+
+（hadoop2.0所有的配置文件都在$HADOOP_HOME/etc/hadoop目录下）
 
 将hadoop添加到环境变量中
 ```
@@ -106,14 +112,16 @@ export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
 hadoop2.0的配置文件全部在$HADOOP_HOME/etc/hadoop下
 ```
 cd /home/hadoop/app/hadoop-2.6.4/etc/hadoop
+
 ```
-###### 2.2.1修改hadoo-env.sh
+#### 5.2.1修改hadoo-env.sh
 ```
 export JAVA_HOME=/home/hadoop/app/jdk1.7.0_55
+
 ```
 
-###### 2.2.2修改core-site.xml
-```
+#### 5.2.2修改core-site.xml
+```xml
 <configuration>
 <!-- 指定hdfs的nameservice为ns1 -->
 <property>
@@ -135,8 +143,8 @@ export JAVA_HOME=/home/hadoop/app/jdk1.7.0_55
 ```
 
 
-###### 2.2.3修改hdfs-site.xml
-```
+#### 5.2.3修改hdfs-site.xml
+```xml
 <configuration>
 <!--指定hdfs的nameservice为bi，需要和core-site.xml中的保持一致 -->
 <property>
@@ -225,8 +233,9 @@ shell(/bin/true)
 </configuration>
 ```
 
-###### 2.2.4修改mapred-site.xml
-```
+#### 5.2.4修改mapred-site.xml
+
+```xml
 <configuration>
 <!-- 指定mr框架为yarn方式 -->
 <property>
@@ -236,8 +245,8 @@ shell(/bin/true)
 </configuration>
 ```
 
-###### 2.2.5修改yarn-site.xml
-```
+#### 5.2.5修改yarn-site.xml
+```xml
 <configuration>
 <!-- 开启RM高可用 -->
 <property>
@@ -275,7 +284,7 @@ shell(/bin/true)
 </configuration>
 ```
 
-###### 2.2.6修改slaves
+#### 5.2.6修改slaves
 
 slaves是指定子节点的位置，因为要在hadoop01上启动HDFS、在hadoop03启动yarn，所以hadoop01上的slaves文件指定的是datanode的位置，hadoop03上的slaves文件指定的是nodemanager的位置
 ```
@@ -283,7 +292,7 @@ hadoop05
 hadoop06
 hadoop07
 ```
-###### 2.2.7配置免密码登陆
+#### 5.2.7配置免密码登陆
 
 首先要配置hadoop00到hadoop01、hadoop02、hadoop03、hadoop04、hadoop05、hadoop06、hadoop07的免密码登陆
 
@@ -328,7 +337,8 @@ ssh-keygen -t rsa
 ssh-coyp-id -i hadoop00
 ```
 
-### 2.4将配置好的hadoop拷贝到其他节点
+## 6 将配置好的hadoop拷贝到其他节点
+
 ```
 scp -r /hadoop/ hadoop02:/
 scp -r /hadoop/ hadoop03:/
@@ -339,12 +349,19 @@ scp -r /hadoop/hadoop-2.6.4/ hadoop@hadoop07:/hadoop/
 ```
 
 
-###注意：严格按照下面的步骤!!!!!!!!!
 
-### 2.5启动zookeeper集群（分别在hdp-05、hdp-06、hdp-07上启动zk）
+
+## 7 启动集群
+
+**注意：严格按照下面的步骤!!!!!!!!!**
+
+### 7.1 启动zookeeper集群
+
+（分别在hdp-05、hdp-06、hdp-07上启动zk）
 ```
 cd /hadoop/zookeeper-3.4.5/bin/
 ./zkServer.sh start
+
 ```
 
 查看状态：一个leader，两个follower
@@ -352,17 +369,18 @@ cd /hadoop/zookeeper-3.4.5/bin/
 ./zkServer.sh status
 ```
 
-### 2.6手动启动journalnode
+### 7.2 手动启动journalnode
 
  分别在在hdp-05、hdp-06、hdp-07上执行
 ```
 cd /hadoop/hadoop-2.6.4
 sbin/hadoop-daemon.sh start journalnode
+
 ```
 
 运行jps命令检验，hadoop05、hadoop06、hadoop07上多了JournalNode进程
 
-### 2.7格式化namenode
+### 7.3 格式化namenode
 
 在hdp-01上执行命令:
 ```
@@ -376,16 +394,22 @@ scp -r tmp/ hadoop02:/home/hadoop/app/hadoop-2.6.4/
 
 也可以这样，建议hdfs namenode -bootstrapStandby
 
-### 2.8格式化ZKFC(在hdp-01上执行即可)
+### 7.4 格式化ZKFC
+
+(在hdp-01上执行即可)
+
 ```
 hdfs zkfc -formatZK
 ```
 
-### 2.9启动HDFS(在hadoop00上执行)
+### 7.5 启动HDFS
+
+(在hadoop00上执行)
 ```
 sbin/start-dfs.sh
+
 ```
-### 2.10启动YARN
+### 7.6 启动YARN
 
 **注意：是在hadoop02上执行start-yarn.sh，把namenode和resourcemanager分开是因为性能问题，因为他们都要占用大量资源，所以把他们分开了，他们分开了就要分别在不同的机器上启动**
 ```
