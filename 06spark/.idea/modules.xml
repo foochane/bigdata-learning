@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/06spark.iml" filepath="$PROJECT_DIR$/06spark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sparkcore/sparkcore.iml" filepath="$PROJECT_DIR$/sparkcore/sparkcore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sparksql/sparksql.iml" filepath="$PROJECT_DIR$/sparksql/sparksql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sparkstreaming/sparkstreaming.iml" filepath="$PROJECT_DIR$/sparkstreaming/sparkstreaming.iml" />
+    </modules>
+  </component>
+</project>
