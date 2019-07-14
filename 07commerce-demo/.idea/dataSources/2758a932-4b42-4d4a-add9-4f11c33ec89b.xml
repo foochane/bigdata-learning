@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="commerce@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="commerce">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <table id="7" parent="2" name="session_ration_0308"/>
+    <column id="8" parent="7" name="taskid">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="9" parent="7" name="session_count">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <column id="10" parent="7" name="visit_length_1s_3s_ratio">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="11" parent="7" name="visit_length_4s_6s_ratio">
+      <Position>4</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="12" parent="7" name="visit_length_7s_9s_ratio">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="13" parent="7" name="visit_length_10s_30s_ratio">
+      <Position>6</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="14" parent="7" name="visit_length_30s_60s_ratio">
+      <Position>7</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="15" parent="7" name="visit_length_1m_3m_ratio">
+      <Position>8</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="16" parent="7" name="visit_length_3m_10m_ratio">
+      <Position>9</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="17" parent="7" name="visit_length_10m_30m_ratio">
+      <Position>10</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="18" parent="7" name="visit_length_30m_ratio">
+      <Position>11</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="19" parent="7" name="step_length_1_3_ratio">
+      <Position>12</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="20" parent="7" name="step_length_4_6_ratio">
+      <Position>13</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="21" parent="7" name="step_length_7_9_ratio">
+      <Position>14</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="22" parent="7" name="step_length_10_30_ratio">
+      <Position>15</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="23" parent="7" name="step_length_30_60_ratio">
+      <Position>16</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="24" parent="7" name="step_length_60_ratio">
+      <Position>17</Position>
+      <DataType>double|0</DataType>
+    </column>
+  </database-model>
+</dataSource>
