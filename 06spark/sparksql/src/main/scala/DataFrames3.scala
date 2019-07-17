@@ -12,6 +12,9 @@ import org.apache.spark.sql.SparkSession
 object DataFrames3 {
   def main(args: Array[String]): Unit = {
 
+    System.setProperty("HADOOP_USER_NAME", "hadoop")
+
+
     /**
       * 若要把Spark SQL连接到一个部署好的Hive上，你必须把hive-site.xml复制到 Spark的配置文件目录中($SPARK_HOME/conf)。
       * 即使没有部署好Hive，Spark SQL也可以运行,但是如果没有部署好Hive，
@@ -26,7 +29,9 @@ object DataFrames3 {
     val spark = SparkSession
       .builder()
       .config(sparkConf)
+      .master("spark://Node02:7077")
       .enableHiveSupport()
+      .config("spark.sql.warehouse.dir", "/user/hive/warehouse/")
       .getOrCreate()
 
 
@@ -53,4 +58,16 @@ spark-submit \
 --jars /usr/share/java/mysql-connector-java-5.1.45.jar \
 ./sparksql-1.0-SNAPSHOT.jar
 
+
+注意要打开metastore的服务端：hive --service metastore
+
+
+spark-submit \
+--class DataFrames3 \
+--master spark://Node02:7077 \
+--jars /usr/share/java/mysql-connector-java-5.1.45.jar \
+./sparksql-1.0-SNAPSHOT.jar
+
 */
+
+
