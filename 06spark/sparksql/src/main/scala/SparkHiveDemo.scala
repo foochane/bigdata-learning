@@ -8,8 +8,8 @@ object SparkHiveDemo {
   def main(args: Array[String]): Unit = {
 
     //设置HADOOP_USER_NAME，否则会有权限问题,后面已经在修改过hadoop配置文件了，所以可以不配置了
-    System.setProperty("HADOOP_USER_NAME", "hadoop")
-    System.setProperty("user.name", "hadoop")
+//    System.setProperty("HADOOP_USER_NAME", "hadoop")
+//    System.setProperty("user.name", "hadoop")
 
     // 创建sparkConf
     //    val sparkConf = new SparkConf()

@@ -19,6 +19,13 @@
         <version>2.4.3</version>
     </dependency>
 
+    <!--mysqljdbc驱动-->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.38</version>
+    </dependency>
+
 
 </dependencies>
 

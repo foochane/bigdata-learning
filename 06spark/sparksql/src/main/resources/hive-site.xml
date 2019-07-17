@@ -36,7 +36,7 @@
   </property>
   <property>
     <name>hive.metastore.warehouse.dir</name>
-    <value>hdfs://Node02:9000/user/hive/warehouse</value>
+    <value>hdfs://Node02:9000/user/hive/warehouse/analysis.db</value>
   </property>
   <property>
     <name>hive.querylog.location</name>
