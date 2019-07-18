@@ -48,7 +48,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.atguigu.session.UserVisitSessionAnalyze</mainClass>
+                            <mainClass>com.foochane.session.UserVisitSessionAnalyze</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

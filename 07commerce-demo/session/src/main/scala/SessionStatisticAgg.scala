@@ -21,7 +21,15 @@ object SessionStatisticAgg {
 
     // 获取查询的限制条件
     val jsonStr = ConfigurationManager.config.getString(Constants.TASK_PARAMS)
+    /*
+    println("jsonStr:"+jsonStr)
+    jsonStr:{startDate:"2018-08-01", endDate:"2018-08-30", startAge: 20, endAge: 50, professionals: "",  cities: "", sex:"", keywords:"", categoryIds:"", targetPageFlow:"1,2,3,4,5,6,7"}
+    */
     val taskParam = JSONObject.fromObject(jsonStr)
+    /*
+    println("tarkParam:"+taskParam)
+    tarkParam:{"startDate":"2018-08-01","endDate":"2018-08-30","startAge":20,"endAge":50,"professionals":"","cities":"","sex":"","keywords":"","categoryIds":"","targetPageFlow":"1,2,3,4,5,6,7"}
+    */
 
     // 获取全局独一无二的主键
     val taskUUID = UUID.randomUUID().toString
@@ -34,12 +42,15 @@ object SessionStatisticAgg {
 
     // actionRDD: rdd[UserVisitAction]
     val actionRDD = getActionRDD(sparkSession, taskParam)
+    println("actionRDD")
+    actionRDD.collect().foreach(println _)
 
     // sessionId2ActionRDD: rdd[(sid, UserVisitAction)]
     val sessionId2ActionRDD = actionRDD.map{
       item => (item.session_id, item)
     }
-
+    sessionId2ActionRDD.collect().foreach(println _)
+/*
     // sessionId2GroupRDD: rdd[(sid, iterable(UserVisitAction))]
     val sessionId2GroupRDD = sessionId2ActionRDD.groupByKey()
 
@@ -66,6 +77,9 @@ object SessionStatisticAgg {
 
     // 获取最终的统计结果
     getFinalData(sparkSession, taskUUID, sessionStatAccumulator.value)
+
+
+    */
   }
 
   def getFinalData(sparkSession: SparkSession,

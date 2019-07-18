@@ -47,7 +47,7 @@ object SaveData2MySQL {
     val tableName = "people"   //表名
 
     //写入mysql数据库 ， Overwrite:覆盖 ;Append: 追加; Ignore:忽略
-    df.write.mode(SaveMode.Append) jdbc(url, tableName, prop)
+    df.write.mode(SaveMode.Overwrite) jdbc(url, tableName, prop)
     println("数据已写入mysql......")
 
     spark.stop()

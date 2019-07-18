@@ -32,10 +32,10 @@ object SaveData2MySQL2 {
     prop.setProperty("user", "root")
     prop.setProperty("password", "123456")
     prop.setProperty("useSSL", "false")
-    val tableName = "test1" //表名
+    val tableName = "test_transheader" //表名
 
     //写入mysql数据库 ， Overwrite:覆盖 ;Append: 追加; Ignore:忽略
-    rdd.toDF().write.mode(SaveMode.Append) jdbc(url, tableName, prop)
+    rdd.toDF().write.mode(SaveMode.Overwrite) jdbc(url, tableName, prop)
 
     spark.stop()
   }
