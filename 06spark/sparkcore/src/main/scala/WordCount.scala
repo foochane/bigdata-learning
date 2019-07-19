@@ -50,9 +50,7 @@ object WordCount {
       */
     val conf = new SparkConf()
       .setAppName("sparkcore")
-      .setMaster("spark://Node02:7077")
-      .setJars(List("D:\\home\\code\\bigdata\\bigdata-learning\\06spark\\sparkcore\\target\\sparkcore-1.0-SNAPSHOT.jar"))
-      .setIfMissing("spark.driver.host", "192.168.1.103")
+
 
 
     /**

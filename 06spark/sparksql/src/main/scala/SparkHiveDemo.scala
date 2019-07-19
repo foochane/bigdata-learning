@@ -28,11 +28,15 @@ object SparkHiveDemo {
 
     /**
       * 注意在windows本地运行的时候setMaster要设为local[*]，打包到集群里运行的时候再改为spark://Node02:7077
+      * 如果在windows本地使用spark://Node02:7077，应该添加spark.driver.host
       */
     val sparkConf = new SparkConf()
       .setAppName("Test Spark ")
-      .setMaster("local[*]")
-
+//      .setMaster("local[*]")
+      //调用集群
+      .setMaster("spark://Node02:7077")
+//      .setJars(List("D:\\home\\code\\bigdata\\bigdata-learning\\06spark\\sparksql\\target\\sparksql-1.0-SNAPSHOT.jar"))
+//      .setIfMissing("spark.driver.host", "192.168.1.103")
 
     // 创建sparkSession
     val spark = SparkSession
