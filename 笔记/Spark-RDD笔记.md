@@ -5,7 +5,7 @@
 - 从外部存储创建RDD
 - 从其他RDD创建
 
-### 1.1 从结合中创建RDD
+### 1.1 从集合中创建RDD
 
 从集合中创建RDD，Spark主要提供了两种函数：parallelize和makeRDD
 

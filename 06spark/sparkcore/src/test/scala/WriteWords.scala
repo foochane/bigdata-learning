@@ -3,8 +3,9 @@
   */
 object WriteWords {
 
-  import scala.io.Source
   import java.io._
+
+  import scala.io.Source
 
   def main(args: Array[String]): Unit = {
     val dataSource = Source.fromFile("D:\\data\\test.txt", "UTF-8")
