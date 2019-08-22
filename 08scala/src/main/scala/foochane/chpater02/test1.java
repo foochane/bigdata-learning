@@ -1,4 +1,4 @@
 package foochane.chpater02;
 
-public class test {
+public class test1 {
 }
