@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sparkcore" />
         <module name="sparksql" />
         <module name="sparkstreaming" />
+        <module name="sparkcore" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
