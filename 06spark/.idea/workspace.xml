@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="692dd603-6eb9-4857-a6f0-e998c1777da2" name="Default" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
@@ -201,6 +202,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xmlenc_xmlenc_0_52.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xmlenc_xmlenc_0_52.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/06spark.iml" beforeDir="false" afterPath="$PROJECT_DIR$/06spark.iml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/sparkcore/src/main/scala/CreateRDD.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WordCount/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/spark.log.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkcore/sparkcore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sparkcore/sparkcore.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkcore/src/main/scala/Test.scala" beforeDir="false" afterPath="$PROJECT_DIR$/sparkcore/src/test/scala/Test.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkcore/src/main/scala/WordSplit.scala" beforeDir="false" afterPath="$PROJECT_DIR$/sparkcore/src/test/scala/WordSplit.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkcore/src/main/scala/WriteWords.scala" beforeDir="false" afterPath="$PROJECT_DIR$/sparkcore/src/test/scala/WriteWords.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparksql/src/main/scala/SparkHiveDemo.scala" beforeDir="false" afterPath="$PROJECT_DIR$/sparksql/src/main/scala/SparkHiveDemo.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spark-RDD笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Spark-RDD笔记.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WordCount/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../WordCount/.idea/workspace.xml" afterDir="false" />
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -226,6 +240,85 @@
   <component name="FavoritesManager">
     <favorites_list name="spark" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/CreateRDD.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/SparkHiveDemo.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sparksql/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="53" selection-start-line="53" selection-end-line="59" />
+              <folding>
+                <element signature="n#build#0;n#project#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Desktop/SparkHiveDemo.scala">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/hive-site.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="72" column="10" lean-forward="true" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/WordCount.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#49#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   <component name="FindInProjectRecents">
     <findStrings>
       <find>rdd</find>
@@ -240,6 +333,46 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/com/foochane/wordcount/WordCount.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/wordcount.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/pom.xml" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/test.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/writewords.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/WordSplit.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/Test.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/WriteWords.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/sqlTest.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/SparkSession.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/SparkSessionTest.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/HelloWorld.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/resources/people.txt" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/DataFrames1.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/DataFrames2.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/DataFrames3.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/resources/hive-site.xml" />
+        <option value="$PROJECT_DIR$/sparksql/pom.xml" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/SaveData2MySQL.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/SaveData2MySQL2.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/WordCount.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/test/scala/WriteWords.scala" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/fdf.java" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/dfd.java" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/fdsf.java" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/DFD.java" />
+        <option value="$PROJECT_DIR$/sparkcore/src/main/scala/CreateRDD.scala" />
+        <option value="$PROJECT_DIR$/sparksql/src/main/scala/SparkHiveDemo.scala" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -252,26 +385,157 @@
       </MavenImportingSettings>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
+=======
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sparksql" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sparksql" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1358" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   </component>
   <component name="ProjectId" id="1PgLS4RmphdffNLotB3aYeNgWcP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+<<<<<<< HEAD
+=======
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkcore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparksql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparksql" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparksql" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparksql" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="06spark" type="462c0819:PsiDirectoryNode" />
+              <item name="sparksql" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.41131666" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sparkcore/src/test/scala" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.41131666" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\home\code\bigdata\bigdata-learning\06spark\sparkcore\src\test\scala" />
       <recent name="D:\home\code\bigdata\bigdata-learning\06spark\sparksql\src\main\resources" />
       <recent name="D:\home\code\bigdata\bigdata-learning\06spark\sparkcore\src\main\resources" />
     </key>
@@ -295,6 +559,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CreateRDD" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="CreateRDD" />
+      <module name="sparkcore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DataFrames1" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="DataFrames1" />
       <module name="sparksql" />
@@ -305,14 +577,6 @@
     </configuration>
     <configuration name="SaveData2MySQL" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="SaveData2MySQL" />
-      <module name="sparksql" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SaveData2MySQL2" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="SaveData2MySQL2" />
       <module name="sparksql" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -458,17 +722,17 @@
     <list>
       <item itemvalue="Application.SparkHiveDemo" />
       <item itemvalue="Application.SaveData2MySQL" />
-      <item itemvalue="Application.SaveData2MySQL2" />
       <item itemvalue="Application.WordCount" />
       <item itemvalue="Application.DataFrames1" />
+      <item itemvalue="Application.CreateRDD" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SparkHiveDemo" />
+        <item itemvalue="Application.CreateRDD" />
         <item itemvalue="Application.WordCount" />
         <item itemvalue="Application.DataFrames1" />
         <item itemvalue="Application.SaveData2MySQL" />
-        <item itemvalue="Application.SaveData2MySQL2" />
       </list>
     </recent_temporary>
   </component>
@@ -501,11 +765,25 @@
       <workItem from="1563449417468" duration="700000" />
       <workItem from="1563456536621" duration="229000" />
       <workItem from="1563456859134" duration="1145000" />
+<<<<<<< HEAD
       <workItem from="1563496909106" duration="9563000" />
       <workItem from="1566290791451" duration="2567000" />
+=======
+      <workItem from="1563496909106" duration="17050000" />
+      <workItem from="1563957437759" duration="4895000" />
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
     </task>
+    <task id="LOCAL-00001" summary="测试提交">
+      <created>1563513278042</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1563513278042</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -519,9 +797,365 @@
         </entry>
       </map>
     </option>
+=======
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="140656000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49315068" visible="true" weight="0.1705757" />
+      <window_info id="Structure" order="1" weight="0.14372164" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" sideWeight="0.5068493" side_tool="true" weight="0.20196672" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Nl-Palette" order="7" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.328125" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3585746" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.40513393" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.35523385" />
+      <window_info anchor="bottom" id="Java Enterprise" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.33102345" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32942432" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Properties" order="9" />
+      <window_info anchor="right" id="Bean Validation" order="10" weight="0.32980332" />
+      <window_info anchor="right" id="Maven" order="11" visible="true" weight="0.015991472" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="测试提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试提交" />
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/sparkstreaming/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/com/foochane/wordcount/WordCount.scala" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-core_2.12/2.4.3/spark-core_2.12-2.4.3.jar!/org/apache/spark/SparkContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-sql_2.12/2.4.3/spark-sql_2.12-2.4.3.jar!/org/apache/spark/sql/SparkSession.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="99" column="7" selection-start-line="99" selection-start-column="7" selection-end-line="99" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-core_2.12/2.4.3/spark-core_2.12-2.4.3-sources.jar!/org/apache/spark/SparkContext.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3542">
+          <caret line="2441" column="7" selection-start-line="2441" selection-start-column="7" selection-end-line="2441" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/employees.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-sql_2.11/2.4.3/spark-sql_2.11-2.4.3.jar!/org/apache/spark/sql/SparkSession.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="111" column="20" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-core_2.11/2.4.3/spark-core_2.11-2.4.3.jar!/org/apache/spark/util/Utils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-sql_2.11/2.4.3/spark-sql_2.11-2.4.3-sources.jar!/org/apache/spark/sql/SparkSession.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="1116" column="53" selection-start-line="1116" selection-start-column="49" selection-end-line="1116" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/hdfs-site.xml" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/DataFrames2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/DataFrames3.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/SaveData2MySQL.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/DataFrames1.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="5" selection-start-line="5" selection-end-line="9" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/SaveData2MySQL2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/people.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/Test.scala" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/WriteWords.scala" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/WordSplit.scala" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/test/scala/WordSplit.scala">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/test/scala/WriteWords.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/dsds.scala" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/fdsf.java" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/fdf.java" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/DFD.java" />
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/test/scala/Test.scala">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/HelloWorld.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="32" column="25" lean-forward="true" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-core_2.11/2.4.3/spark-core_2.11-2.4.3.jar!/org/apache/spark/SparkContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-475">
+          <caret line="60" column="6" selection-start-line="60" selection-start-column="6" selection-end-line="60" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/org/apache/spark/spark-core_2.11/2.4.3/spark-core_2.11-2.4.3-sources.jar!/org/apache/spark/SparkContext.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="804" lean-forward="true" selection-start-line="804" selection-end-line="804" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/WordCount.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../maven/local/io/netty/netty-all/4.1.17.Final/netty-all-4.1.17.Final.jar!/io/netty/util/concurrent/SingleThreadEventExecutor.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/SparkHiveDemo.scala">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="53" selection-start-line="53" selection-end-line="59" />
+          <folding>
+            <element signature="n#build#0;n#project#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/scala/SparkHiveDemo.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparkcore/src/main/scala/CreateRDD.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparksql/src/main/resources/hive-site.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="72" column="10" lean-forward="true" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.11.12</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.41131666" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.56436783" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>06spark</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.41131666" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.11.121</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.41131666" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+>>>>>>> bd5f9392a4a8c461f8c87e060739e74741a9fe14
 </project>

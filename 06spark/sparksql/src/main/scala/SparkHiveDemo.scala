@@ -35,8 +35,8 @@ object SparkHiveDemo {
 //      .setMaster("local[*]")
       //调用集群
       .setMaster("spark://Node02:7077")
-//      .setJars(List("D:\\home\\code\\bigdata\\bigdata-learning\\06spark\\sparksql\\target\\sparksql-1.0-SNAPSHOT.jar"))
-//      .setIfMissing("spark.driver.host", "192.168.1.103")
+      .setJars(List("D:\\home\\code\\bigdata\\bigdata-learning\\06spark\\sparksql\\target\\sparksql-1.0-SNAPSHOT.jar"))
+      .setIfMissing("spark.driver.host", "192.168.1.103")
 
     // 创建sparkSession
     val spark = SparkSession
