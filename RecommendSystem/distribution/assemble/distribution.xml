@@ -1,0 +1,112 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the README.md file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>final-distribution</id>
+    <formats>
+        <format>dir</format>
+        <format>tar.gz</format>
+        <!-- format>zip</format -->
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>RecommendSystem-${project.version}</baseDirectory>
+
+    <dependencySets>
+        <!--<dependencySet>
+            &lt;!&ndash; Enable access to all projects in the current multimodule build!
+            <useAllReactorProjects>true</useAllReactorProjects> &ndash;&gt;
+            &lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;
+            <includes>
+                <include>${project.groupId}:smartsuites-web</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>./web/</outputDirectory>
+        </dependencySet>-->
+
+        <dependencySet>
+            <includes>
+                <include>${project.groupId}:kafkastream</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>./recom/kafkaStream/</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>${project.groupId}:streamingRecommender</include>
+                <include>${project.groupId}:statisticsRecommender</include>
+                <include>${project.groupId}:offlineRecommender</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>./recom/recommender/</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <includes>
+                <include>${project.groupId}:commons</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>${project.groupId}:businessServer</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>./server/</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>${project.groupId}:dataloader</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>./loader/</outputDirectory>
+        </dependencySet>
+
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <directory>./distribution</directory>
+            <includes>
+                <include>README.md</include>
+                <include>LICENSE*</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>./distribution/bin</directory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <outputDirectory>./bin/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>./distribution/conf</directory>
+            <outputDirectory>./conf/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>../website/website/dist</directory>
+            <outputDirectory>./web/</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
