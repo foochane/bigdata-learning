@@ -49,9 +49,9 @@ public class GenBeahavior {
 
                 StartupReportLogs appStartupLogs = initAppStartupLogs(userId, userPlatform, beginTime);
 
-//                PageVisitReportLogs pageVisitReportLogs = initPageVisitReportLogs(userId, userPlatform, beginTime);
-//
-//                ErrorReportLogs errorReportLogs = initErrorReportLogs(userId, userPlatform, beginTime);
+                PageVisitReportLogs pageVisitReportLogs = initPageVisitReportLogs(userId, userPlatform, beginTime);
+
+                ErrorReportLogs errorReportLogs = initErrorReportLogs(userId, userPlatform, beginTime);
 
 
                 String startupJson = JSONObject.toJSONString(appStartupLogs);

@@ -15,9 +15,14 @@ public class UploadUtil {
 	public static void upload(String json, int logKind) throws Exception {
 		try{
 			//不同的日志类型对应不同的URL
-			URL[] urls = {new URL("192.168.1.112:80/log-analysis04/logs/startupLogs"),
-					new URL("192.168.1.112:80/log-analysis04/logs/pageLogs"),
-					new URL("192.168.1.112:80/log-analysis04/logs/errorLogs")};
+			//注意http不能省略
+			//192.168.1.112 nginx的部署的ip
+			//默认端口号为：80
+			//log-collector-web-1.0-SNAPSHOT 是tomcat下webapps下的目录（tomcat_servelet项目打的war包在webapps下）
+			//logs/*是tomcat_servelet中 LogCollector.java中定义的路径
+			URL[] urls = {new URL("http://192.168.1.112:80/log-collector-web-1.0-SNAPSHOT/logs/startupLogs"),
+					new URL("http://192.168.1.112:80/log-collector-web-1.0-SNAPSHOT/logs/pageLogs"),
+					new URL("http://192.168.1.112:80/log-collector-web-1.0-SNAPSHOT/logs/errorLogs")};
 
 			URL url = urls[logKind];
 

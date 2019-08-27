@@ -1,4 +1,4 @@
-## 手机APP分析系统
+# 手机APP分析系统
 
 
 ## 1 代码结构：
@@ -75,7 +75,7 @@ sudo apt-get install openssl libssl-dev
 ```
 
 
-### 3.1.2 安装nginx
+#### 3.1.2 安装nginx
 
 安装
 ```
@@ -96,8 +96,9 @@ make && make install
  ```
 
 
- ### 3.1.2 nginx负载均衡配置
+ #### 3.1.2 nginx负载均衡配置
 
+conf/nginx.conf
 
 ```conf
 #user  nobody;
@@ -161,3 +162,158 @@ http {
     }
 }
 ```
+
+### 3.2 Tomcat安装
+**用普通用户安装**
+#### 3.2.1 安装
+```
+sudo chown -R ubuntu:ubuntu modules/
+tar -zxvf apache-tomcat-7.0.72.tar.gz -C /opt/modules/
+cd /opt/modules
+mv apache-tomcat-7.0.72/ apache-tomcat-7.0.72_01
+cp -r apache-tomcat-7.0.72_01 apache-tomcat-7.0.72_02
+```
+
+#### 3.2.2 修改配置文件 conf/server.xml
+tomcat_1：
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+
+<Server port="18005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+
+  <GlobalNamingResources>
+
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+    <Connector port="18080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    <Connector port="18009" protocol="AJP/1.3" redirectPort="8443" />
+
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+
+```
+
+tomcat_2:
+```xml
+
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="28005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <GlobalNamingResources>
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+
+    <Connector port="28080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    <Connector port="28009" protocol="AJP/1.3" redirectPort="8443" />
+    <Engine name="Catalina" defaultHost="localhost">
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+```
+
+
+
+### 3.3 Tomcat部署
+
+### 3.3.1 部署tomcat_servelet代码到tomcat
+
+修改tomcat_serverlet项目中log4j.properties文件的log4j.appender.atguigu.File.file属性，分别打war包放入两个tomcat中。
+放入 Tomcat 安装目录的 webapps 目录下，之后会自
+动解压，生成对应的目录，完成部署后需要重启 Tomcat 从而使部署生效。
+
+打包过程：
+
+在 tomcat_serverlet 项目中点选择 log-collectr-common 点击右侧的maven（Lifecycle)：【clean】--> 【package】-->【install】(install会将包安装在maven仓库中)；
+
+然后选择log-collector-web，同样在右侧的maven(Lifecycle里)：【clean】-->【package】，切换到Plugins，选择【war/war:war】打一个war包。
+
+### 3.3.2 启动tomcat和nginx
+
+启动tomcat：
+```
+/opt/modules/apache-tomcat-7.0.72_01/bin/startup.sh && /opt/modules/apache-tomcat-7.0.72_02/bin/startup.sh
+
+```
+
+停止tomcat：
+```
+/opt/modules/apache-tomcat-7.0.72_01/bin/shutdown.sh && /opt/modules/apache-tomcat-7.0.72_02/bin/shutdown.sh
+
+```
+
+
+启动nginx:
+```
+sudo /usr/local/nginx/sbin/nginx
+
+```
+
+停止nginx：
+```
+sudo /usr/local/nginx/sbin/nginx -s stop
+
+```
+
+### 3.3.3 运行模拟日志发送程序
+启动 data_producer 项目中的 GenBeahavior 程序，开始模拟日志的发送。
+
+运行模型程序后，会在/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect和/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect目录下交替生成日志。
+
+可以使用 ` tail -F atguigu.log`进行查看。
