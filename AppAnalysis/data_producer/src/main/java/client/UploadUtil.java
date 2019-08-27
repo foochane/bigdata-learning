@@ -15,9 +15,9 @@ public class UploadUtil {
 	public static void upload(String json, int logKind) throws Exception {
 		try{
 			//不同的日志类型对应不同的URL
-			URL[] urls = {new URL("http://hadoop-senior01.itguigu.com:80/log-analysis04/logs/startupLogs"),
-					new URL("http://hadoop-senior01.itguigu.com:80/log-analysis04/logs/pageLogs"),
-					new URL("http://hadoop-senior01.itguigu.com:80/log-analysis04/logs/errorLogs")};
+			URL[] urls = {new URL("192.168.1.112:80/log-analysis04/logs/startupLogs"),
+					new URL("192.168.1.112:80/log-analysis04/logs/pageLogs"),
+					new URL("192.168.1.112:80/log-analysis04/logs/errorLogs")};
 
 			URL url = urls[logKind];
 

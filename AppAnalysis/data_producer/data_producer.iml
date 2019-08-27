@@ -14,6 +14,5 @@
     <orderEntry type="library" name="R User Library" level="project" />
     <orderEntry type="library" name="R Skeletons" level="application" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.24" level="project" />
-    <orderEntry type="library" name="Maven: bigdata-umeng:app-analyze-common:1.0-SNAPSHOT" level="project" />
   </component>
 </module>
