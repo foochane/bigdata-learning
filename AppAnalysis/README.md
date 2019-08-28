@@ -167,7 +167,7 @@ http {
 **用普通用户安装**
 #### 3.2.1 安装
 ```
-sudo chown -R ubuntu:ubuntu modules/
+sudo chown -R ubuntu:ubuntu /opt/modules/
 tar -zxvf apache-tomcat-7.0.72.tar.gz -C /opt/modules/
 cd /opt/modules
 mv apache-tomcat-7.0.72/ apache-tomcat-7.0.72_01
@@ -317,3 +317,111 @@ sudo /usr/local/nginx/sbin/nginx -s stop
 运行模型程序后，会在/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect和/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect目录下交替生成日志。
 
 可以使用 ` tail -F atguigu.log`进行查看。
+
+
+## 4 Flume配置
+
+**注意将flume-atguigu-taildirsource.jar文件拷贝到lib目录下**
+
+完整的框架图如下，目前已经完成了从tomcat到数据落盘的过程，接下来是flume的配置。
+![AppAnalysis理想分析框架图](../images/AppAnalysis离线分析框架图1.png)
+
+在前面的配置中我们使用了两个tomcat以及一个nginx做负载均衡。下面的配置过程讲对上面的框架图进行简化，具体如下：
+![AppAnalysis理想分析框架图](../images/AppAnalysis离线分析框架图2.png)
+
+
+第一层flume跟tocat在一台机器上用于采集tomcat中的数据，第二层的两个Flume分别安装在另外两台机器上。
+### 4.1 第一层Flume
+
+```conf
+a1.sources = r1
+a1.channels = c1
+
+a1.sinkgroups = g1
+a1.sinks = k1 k2
+
+a1.sources.r1.type = com.atguigu.flume.source.TaildirSource
+a1.sources.r1.channels = c1
+a1.sources.r1.positionFile = /usr/local/bigdata/flume-1.6.0/checkpoint/behavior/taildir_position.json
+a1.sources.r1.filegroups = f1
+# 多个文件用 .*
+a1.sources.r1.filegroups.f1 = /opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect/atguigu.log
+a1.sources.r1.fileHeader = true
+
+a1.channels.c1.type = file
+a1.channels.c1.checkpointDir = /usr/local/bigdata/flume-1.6.0/checkpoint/behavior
+a1.channels.c1.dataDirs = /usr/local/bigdata/flume-1.6.0/data/behavior/
+a1.channels.c1.maxFileSize = 104857600
+a1.channels.c1.capacity = 90000000
+a1.channels.c1.keep-alive = 60
+
+a1.sinkgroups.g1.sinks = k1 k2
+a1.sinkgroups.g1.processor.type = load_balance
+a1.sinkgroups.g1.processor.backoff = true
+a1.sinkgroups.g1.processor.selector = round_robin
+a1.sinkgroups.g1.processor.selector.maxTimeOut=10000
+
+a1.sinks.k1.type = avro
+a1.sinks.k1.channel = c1
+a1.sinks.k1.batchSize = 1
+a1.sinks.k1.hostname = Node03
+a1.sinks.k1.port = 1234
+
+a1.sinks.k2.type = avro
+a1.sinks.k2.channel = c1
+a1.sinks.k2.batchSize = 1
+a1.sinks.k2.hostname = Node04
+a1.sinks.k2.port = 1234
+```
+
+启动flume：
+```
+/usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf conf/ -f conf/flume-analysis.conf -n a1
+
+```
+
+可以在/data/behavior目录下查看的文件
+
+### 4.2 第二层Flume
+
+```conf
+a1.sources = r1
+a1.channels = c1
+a1.sinks = k1
+
+a1.sources.r1.type = avro
+a1.sources.r1.channels = c1
+a1.sources.r1.bind = 0.0.0.0
+a1.sources.r1.port = 1234
+
+a1.channels.c1.type = file
+a1.channels.c1.checkpointDir = /usr/local/bigdata/flume-1.6.0/checkpoint/behavior_collect
+a1.channels.c1.dataDirs = /usr/local/bigdata/flume-1.6.0/data/behavior_collect
+a1.channels.c1.maxFileSize = 104857600
+a1.channels.c1.capacity = 90000000
+a1.channels.c1.keep-alive = 60
+
+a1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
+a1.sinks.k1.topic = analysis-test
+a1.sinks.k1.brokerList = hadoop-senior01.itguigu.com:9092,hadoop-senior02.itguigu.com:9092,hadoop-senior03.itguigu.com:9092
+a1.sinks.k1.requiredAcks = 1
+a1.sinks.k1.kafka.producer.type = sync
+a1.sinks.k1.batchSize = 1
+a1.sinks.k1.channel = c1
+```
+
+启动zookeeper
+全部机器都启动
+```
+/usr/local/bigdata/zookeeper-3.4.6/bin/zkServer.sh start
+```
+启动kafka
+```
+kafka-server-start.sh /opt/modules/kafka/config/server.properties &
+```
+
+同步时间
+
+```
+sudo ntpdate -u 192.168.1.112
+```
