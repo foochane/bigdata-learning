@@ -21,7 +21,7 @@
 在本项目中，已经将 Taildir Source 的源码放入了 taildirsource 项目中，直接编译项目，
 打包后放入 Flume1.6 安装目录的 lib 文件目录下即可。
 在 Flume 配置文件中指定全类名即可使用 Taildir Source 组件。
-```
+```s
 a1.sources.r1.type = com.atguigu.flume.source.TaildirSource
 
 ```
@@ -65,19 +65,19 @@ pcregrep -V
 **ubuntu 下直接apt-get 安装如下库即可,不需要进行上面的操作：**
  ```sh
 #PCRE库
-sudo apt-get install libpcre3 libpcre3-dev  
+$ sudo apt-get install libpcre3 libpcre3-dev  
 
 #zlib库
-sudo apt-get install zlib1g-dev
+$ sudo apt-get install zlib1g-dev
 
 #OpenSSL库
-sudo apt-get install openssl libssl-dev 
+$ sudo apt-get install openssl libssl-dev 
 ```
 
 
 #### 3.1.2 安装nginx
 
-安装
+安装,用root用户
 ```
 wget http://nginx.org/download/nginx-1.12.2.tar.gz
 
@@ -374,8 +374,8 @@ a1.sinks.k2.hostname = Node04
 a1.sinks.k2.port = 1234
 ```
 
-启动flume：
-```
+启动Node02下的flume：
+```s
 /usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf conf/ -f conf/flume-analysis.conf -n a1
 
 ```
@@ -403,7 +403,7 @@ a1.channels.c1.keep-alive = 60
 
 a1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
 a1.sinks.k1.topic = analysis-test
-a1.sinks.k1.brokerList = hadoop-senior01.itguigu.com:9092,hadoop-senior02.itguigu.com:9092,hadoop-senior03.itguigu.com:9092
+a1.sinks.k1.brokerList = Node02:9092,Node03:9092,Node04:9092
 a1.sinks.k1.requiredAcks = 1
 a1.sinks.k1.kafka.producer.type = sync
 a1.sinks.k1.batchSize = 1
@@ -420,8 +420,38 @@ a1.sinks.k1.channel = c1
 kafka-server-start.sh /opt/modules/kafka/config/server.properties &
 ```
 
-同步时间
+如果时间不统一的话，同步时间
+
+```s
+#被同步的机器要安装其他可以不装
+$ sudo apt install ntp
+
+$ sudo apt install ntpdate
+
+#同步时间
+$ sudo ntpdate -u 192.168.1.112
 
 ```
-sudo ntpdate -u 192.168.1.112
+
+启动Node03和 Node04下的flume：
+```s
+$ /usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf /usr/local/bigdata/flume-1.6.0/conf/ -f /usr/local/bigdata/flume-1.6.0/conf/flume-analysis.conf -n a1
+
 ```
+
+查看kafka里是否有数据：
+
+```s
+$ kafka-topics.sh --zookeeper Node02:2181 --list
+analysis-test
+
+$ $ kafka-console-consumer.sh --zookeeper Node02:2181 --topic analysis-test
+{"activeTimeInMs":39051,"appId":"app00001","appPlatform":"android","appVersion":"1.0.1","city":"Xian","startTimeInMs":1566976694583,"userId":"user117"}
+{"activeTimeInMs":62544,"appId":"app00001","appPlatform":"ios","appVersion":"1.0.1","city":"Shenyang","startTimeInMs":1566976696590,"userId":"user1168"}
+{"activeTimeInMs":1191287,"appId":"app00001","appPlatform":"android","appVersion":"1.0.1","city":"Hangzhou","startTimeInMs":1566976698596,"userId":"user114"}
+{"activeTimeInMs":819555,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Xian","startTimeInMs":1566976700603,"userId":"user1167"}
+{"activeTimeInMs":816384,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Hunan","startTimeInMs":1566976702609,"userId":"user1156"}
+```
+
+到此数据已经成功写入kafka里面了。
+

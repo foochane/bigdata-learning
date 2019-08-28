@@ -80,7 +80,7 @@ $ source ~/.bashrc
 6）分发安装包
 
 ```s
-$ scp -r kafka_2.11-0.8.2.1/ hadoop@Node04:/usr/local/bigdata/
+$ scp -r kafka_2.11-0.8.2.1/ hadoop@Node03:/usr/local/bigdata/
 $ scp -r kafka_2.11-0.8.2.1/ hadoop@Node04:/usr/local/bigdata/
 
 ```
@@ -94,10 +94,21 @@ $ scp -r kafka_2.11-0.8.2.1/ hadoop@Node04:/usr/local/bigdata/
 **注：broker.id不得重复**
 
 ## 3 Kafka集群的启动和关闭
+
+启动Kafka之前要先启动zookeeper
+
+```s
+#启动
+$ /usr/local/bigdata/zookeeper-3.4.6/bin/zkServer.sh start
+
+#查看状态
+
+$ /usr/local/bigdata/zookeeper-3.4.6/bin/zkServer.sh status
+```
 - 启动集群
 依次在Node02、Node03、Node04节点上启动kafka
 ```s
-$ kafka-server-start.sh config/server.properties &
+$ kafka-server-start.sh /usr/local/bigdata/kafka_2.11-0.8.2.1/config/server.properties & 
 
 ```
 - 关闭集群
