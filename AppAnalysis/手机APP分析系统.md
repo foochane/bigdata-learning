@@ -1,66 +1,24 @@
 # 手机APP分析系统
 
+## 1 系统说明
+### 1.1 框架说明
 
-## 1 代码结构：
+### 1.2 代码结构：
 - tomcat_servelet:  servelet代码
 - data_producer:    模拟日志数据生产
 - taildirsourse：   Flume移植代码
 - log-analysis：    日志处理代码
 
 
-## 2 Flume代码移植
-
-由于 Flume 1.6 版本没有 Taildir Source
-组件，因此，需要将 Flume 1.7 中的 Taildir Source 组件源码编译打包后，放入 Flume1.6 安装
-目录的 lib 文件目录下。
-
-所谓移植，就是将 Flume1.7 版本中 Taildir Source 的相关文件全部提取出来，然后将这
-些文件放入新建的项目中进行编译打包，将打包出的 jar 包放入 Flume1.6 安装目录的 lib 目
-录下即可。
-
-在本项目中，已经将 Taildir Source 的源码放入了 taildirsource 项目中，直接编译项目，
-打包后放入 Flume1.6 安装目录的 lib 文件目录下即可。
-在 Flume 配置文件中指定全类名即可使用 Taildir Source 组件。
-```s
-a1.sources.r1.type = com.atguigu.flume.source.TaildirSource
-
-```
-
-打包：
-
-在IDEA中，打开taildirsource项目，点击右侧的maven先双击`clean`然后双击`package`打包，之后变回在target目录下生成一个`flume-taildirsource.jar`文件
 
 
-
-## 3 项目配置
+## 2 Nginx 安装
 
 在一台机器上安装一个nginx和两个tomcat
 
-### 3.1 Nginx 安装
 
-**注意使用root用户**
 
-#### 3.1.1 安装PCRE
-```
-#下载 PCRE 安装包
-
-wget http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz
-
-#解压安装包
-tar zxvf pcre-8.35.tar.gz
-
-进入安装包目录
-cd pcre-8.35
-
-#编译安装
-./configure
-
-#安装
-make && make install
-
-# 查看 pcre 版本
-pcregrep -V
-```
+### 2.1 安装Nginx所需的依赖
 
 **ubuntu 下直接apt-get 安装如下库即可,不需要进行上面的操作：**
  ```sh
@@ -75,28 +33,29 @@ $ sudo apt-get install openssl libssl-dev
 ```
 
 
-#### 3.1.2 安装nginx
+### 2.2 安装nginx
 
-安装,用root用户
+**注意使用root用户**
 ```
-wget http://nginx.org/download/nginx-1.12.2.tar.gz
+# wget http://nginx.org/download/nginx-1.12.2.tar.gz
 
-tar zxvf nginx-1.12.2.tar.gz
+# tar zxvf nginx-1.12.2.tar.gz
 
-cd nginx-1.12.2
+# cd nginx-1.12.2
 
-./configure --prefix=/usr/local/nginx 
+# ./configure --prefix=/usr/local/nginx 
 
-make && make install
+# make && make install
 ```
 
- 查看 Nginx 版本
- ```
- /usr/local/nginx/sbin/nginx -v
+查看 Nginx 版本
+ ```s
+ $ /usr/local/nginx/sbin/nginx -v
+
  ```
 
 
- #### 3.1.2 nginx负载均衡配置
+ ### 2.2 nginx负载均衡配置
 
 conf/nginx.conf
 
@@ -163,18 +122,24 @@ http {
 }
 ```
 
-### 3.2 Tomcat安装
+## 3 Tomcat安装
+
 **用普通用户安装**
-#### 3.2.1 安装
-```
-sudo chown -R ubuntu:ubuntu /opt/modules/
-tar -zxvf apache-tomcat-7.0.72.tar.gz -C /opt/modules/
-cd /opt/modules
-mv apache-tomcat-7.0.72/ apache-tomcat-7.0.72_01
-cp -r apache-tomcat-7.0.72_01 apache-tomcat-7.0.72_02
+
+### 3.1 安装
+```s
+$ sudo cd /opt/modules
+$ sudo chown -R ubuntu:ubuntu /opt/modules/
+$ tar -zxvf apache-tomcat-7.0.72.tar.gz -C /opt/modules/
+$ cd /opt/modules
+$ mv apache-tomcat-7.0.72/ apache-tomcat-7.0.72_01
+$ cp -r apache-tomcat-7.0.72_01 apache-tomcat-7.0.72_02
 ```
 
-#### 3.2.2 修改配置文件 conf/server.xml
+### 3.2 修改配置文件 
+
+分别修改tomcat下的conf/server.xml
+
 tomcat_1：
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
@@ -270,9 +235,9 @@ tomcat_2:
 
 
 
-### 3.3 Tomcat部署
+## 4 Tomcat部署
 
-### 3.3.1 部署tomcat_servelet代码到tomcat
+### 4.1 部署tomcat_servelet代码到tomcat
 
 修改tomcat_serverlet项目中log4j.properties文件的log4j.appender.atguigu.File.file属性，分别打war包放入两个tomcat中。
 放入 Tomcat 安装目录的 webapps 目录下，之后会自
@@ -284,7 +249,7 @@ tomcat_2:
 
 然后选择log-collector-web，同样在右侧的maven(Lifecycle里)：【clean】-->【package】，切换到Plugins，选择【war/war:war】打一个war包。
 
-### 3.3.2 启动tomcat和nginx
+### 4.2 启动tomcat和nginx
 
 启动tomcat：
 ```
@@ -311,7 +276,7 @@ sudo /usr/local/nginx/sbin/nginx -s stop
 
 ```
 
-### 3.3.3 运行模拟日志发送程序
+## 5 运行模拟日志发送程序
 启动 data_producer 项目中的 GenBeahavior 程序，开始模拟日志的发送。
 
 运行模型程序后，会在/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect和/opt/modules/apache-tomcat-7.0.72_01/logs/LogsCollect目录下交替生成日志。
@@ -319,19 +284,50 @@ sudo /usr/local/nginx/sbin/nginx -s stop
 可以使用 ` tail -F atguigu.log`进行查看。
 
 
-## 4 Flume配置
+## 6 Flume配置
 
-**注意将flume-atguigu-taildirsource.jar文件拷贝到lib目录下**
+### 6.1 Flume代码移植
+
+由于 Flume 1.6 版本没有 Taildir Source
+组件，因此，需要将 Flume 1.7 中的 Taildir Source 组件源码编译打包后，放入 Flume1.6 安装
+目录的 lib 文件目录下。
+
+所谓移植，就是将 Flume1.7 版本中 Taildir Source 的相关文件全部提取出来，然后将这
+些文件放入新建的项目中进行编译打包，将打包出的 jar 包放入 Flume1.6 安装目录的 lib 目
+录下即可。
+
+在本项目中，已经将 Taildir Source 的源码放入了 taildirsource 项目中，直接编译项目，
+打包后放入 Flume1.6 安装目录的 lib 文件目录下即可。
+在 Flume 配置文件中指定全类名即可使用 Taildir Source 组件。
+```s
+a1.sources.r1.type = com.atguigu.flume.source.TaildirSource
+
+```
+
+打包：
+
+在IDEA中，打开taildirsource项目，点击右侧的maven先双击`clean`然后双击`package`打包，之后变回在target目录下生成一个`flume-taildirsource.jar`文件
+
+然后
+
+**将flume-atguigu-taildirsource.jar文件拷贝到flume的lib目录下**
+
+### 6.2 Flume分配
 
 完整的框架图如下，目前已经完成了从tomcat到数据落盘的过程，接下来是flume的配置。
-![AppAnalysis理想分析框架图](../images/AppAnalysis离线分析框架图1.png)
+![AppAnalysis理想分析框架图1](https://raw.githubusercontent.com/foochane/bigdata-learning/master/images/AppAnalysis离线分析框架图1.png)
 
 在前面的配置中我们使用了两个tomcat以及一个nginx做负载均衡。下面的配置过程讲对上面的框架图进行简化，具体如下：
-![AppAnalysis理想分析框架图](../images/AppAnalysis离线分析框架图2.png)
+![AppAnalysis理想分析框架图2](https://raw.githubusercontent.com/foochane/bigdata-learning/master/images/AppAnalysis离线分析框架图2.png)
 
 
 第一层flume跟tocat在一台机器上用于采集tomcat中的数据，第二层的两个Flume分别安装在另外两台机器上。
-### 4.1 第一层Flume
+
+第一层flume安装在Node02上，第二层flume安装在Node03和Node04上。
+
+### 6.3 第一层Flume
+
+配置文件如下：
 
 ```conf
 a1.sources = r1
@@ -376,13 +372,13 @@ a1.sinks.k2.port = 1234
 
 启动Node02下的flume：
 ```s
-/usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf conf/ -f conf/flume-analysis.conf -n a1
+$ /usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf conf/ -f conf/flume-analysis.conf -n a1
 
 ```
 
 可以在/data/behavior目录下查看的文件
 
-### 4.2 第二层Flume
+### 6.4 第二层Flume
 
 ```conf
 a1.sources = r1
@@ -410,14 +406,14 @@ a1.sinks.k1.batchSize = 1
 a1.sinks.k1.channel = c1
 ```
 
-启动zookeeper
-全部机器都启动
+启动zookeeper（全部机器都启动）
+
 ```
-/usr/local/bigdata/zookeeper-3.4.6/bin/zkServer.sh start
+$ /usr/local/bigdata/zookeeper-3.4.6/bin/zkServer.sh start
 ```
 启动kafka
 ```
-kafka-server-start.sh /opt/modules/kafka/config/server.properties &
+$ kafka-server-start.sh /opt/modules/kafka/config/server.properties &
 ```
 
 如果时间不统一的话，同步时间
@@ -451,7 +447,16 @@ $ $ kafka-console-consumer.sh --zookeeper Node02:2181 --topic analysis-test
 {"activeTimeInMs":1191287,"appId":"app00001","appPlatform":"android","appVersion":"1.0.1","city":"Hangzhou","startTimeInMs":1566976698596,"userId":"user114"}
 {"activeTimeInMs":819555,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Xian","startTimeInMs":1566976700603,"userId":"user1167"}
 {"activeTimeInMs":816384,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Hunan","startTimeInMs":1566976702609,"userId":"user1156"}
+........
+
 ```
 
 到此数据已经成功写入kafka里面了。
 
+## 7 运行Kafka消费者代码
+
+接下来是数据从Kafka写入HDFS,代码位于项目log-analysis下的data-processing模块下的KafkaConsumer.java中
+
+运行代码就可以在HDFS上查看到数据。
+
+## 8 Hive配置
