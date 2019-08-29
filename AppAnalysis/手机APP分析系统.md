@@ -441,12 +441,13 @@ $ /usr/local/bigdata/flume-1.6.0/bin/flume-ng agent --conf /usr/local/bigdata/fl
 $ kafka-topics.sh --zookeeper Node02:2181 --list
 analysis-test
 
-$ $ kafka-console-consumer.sh --zookeeper Node02:2181 --topic analysis-test
+$ kafka-console-consumer.sh --zookeeper Node02:2181 --topic analysis-test
 {"activeTimeInMs":39051,"appId":"app00001","appPlatform":"android","appVersion":"1.0.1","city":"Xian","startTimeInMs":1566976694583,"userId":"user117"}
 {"activeTimeInMs":62544,"appId":"app00001","appPlatform":"ios","appVersion":"1.0.1","city":"Shenyang","startTimeInMs":1566976696590,"userId":"user1168"}
 {"activeTimeInMs":1191287,"appId":"app00001","appPlatform":"android","appVersion":"1.0.1","city":"Hangzhou","startTimeInMs":1566976698596,"userId":"user114"}
 {"activeTimeInMs":819555,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Xian","startTimeInMs":1566976700603,"userId":"user1167"}
 {"activeTimeInMs":816384,"appId":"app00001","appPlatform":"android","appVersion":"1.0.2","city":"Hunan","startTimeInMs":1566976702609,"userId":"user1156"}
+
 ........
 
 ```
@@ -457,6 +458,241 @@ $ $ kafka-console-consumer.sh --zookeeper Node02:2181 --topic analysis-test
 
 接下来是数据从Kafka写入HDFS,代码位于项目log-analysis下的data-processing模块下的KafkaConsumer.java中
 
-运行代码就可以在HDFS上查看到数据。
+运行代码前要先启动hdfs和yarn。
+
+运行运行Kafka消费者代码就可以在HDFS上查看到数据。
 
 ## 8 Hive配置
+
+### 8.1 配置Hive支持JSON存储
+
+在 Hive 中采用 Json 作为存储格式，需要建表时指定 Serde。Insert into 时，Hive 使用 json
+格式进行保存，查询时，通过 json 库进行解析。Hive 默认输出是压缩格式，这里改成不压
+缩。
+
+具体操作步骤如下：
+1. 将 json-serde-1.3.8-jar-with-dependencies.jar 导入到 hive 的/usr/local/bigdata/hive-2.3.5/lib 路径
+下。
+2. 在/usr/local/bigdata/hive-2.3.5/conf/hive-site.xml 文件中添加如下配置：
+代码清单 3-9 Hive支持JSON存储配置
+```xml
+<property>
+<name>hive.aux.jars.path</name>
+<value>file:///usr/local/bigdata/hive-2.3.5/lib/json-serde-1.3.8-jar-with-dependencies.jar</value>
+</property>
+<property>
+<name>hive.exec.compress.output</name>
+<value>false</value>
+</property>
+```
+
+### 8.2 创建分区表
+
+```sql
+--查看数据库
+hive> show databases;
+--如果 applogs_db 存在则删除数据库：
+hive> drop database applogs_db;
+--创建数据库
+hive> create database applogsdb;
+
+--使用 applogs_db 数据库：
+hive (default)> use applogsdb;
+--创建分区表
+--startup
+CREATE external TABLE ext_startup_logs(userId string,appPlatform string,appId
+string,startTimeInMs bigint,activeTimeInMs bigint,appVersion string,city
+string)PARTITIONED BY (ym string, day string,hm string) ROW FORMAT SERDE 
+'org.openx.data.jsonserde.JsonSerDe' STORED AS TEXTFILE; 
+--查看数据库中的分区表
+hive> show tables;
+--退出 Hive
+hive> quit;
+```
+
+
+### 8.3 创建并执行crontab调度脚本
+创建hdfstohive.sh并且放在 /usr/local/bigdata/shell文件夹下
+
+```bash
+#!/bin/bash
+# 获取三分钟之前的时间
+systime=`date -d "-3 minute" +%Y%m-%d-%H%M`
+# 获取年月
+ym=`echo ${systime} | awk -F '-' '{print $1}'`
+# 获取日
+day=`echo ${systime} | awk -F '-' '{print $2}'`
+# 获取小时分钟
+hm=`echo ${systime} | awk -F '-' '{print $3}'`
+# 执行 hive 命令
+/usr/local/bigdata/hive-2.3.5/bin/hive -e "load data inpath '/user/app-analysis/data/${ym}/${day}/${hm}' into table applogsdb.ext_startup_logs partition(ym='${ym}',day='${day}',hm='${hm}')"
+```
+
+
+1. 进入编写 crontab 调度
+```s
+$ crontab –e
+
+```
+添加命令，实现每分钟执行一次
+```s
+* * * * * /usr/local/bigdata/shell/hdfstohive.sh
+
+```
+
+启动crontab
+```s
+service crond start
+
+```
+
+
+【注】：crontab 常用命令
+
+1. 查看状态
+service cron status
+2. 停止状态：
+service cron stop
+3. 启动状态：
+service cron start
+4. 编辑 crontab 定时任务
+crontab –e
+5. 查询 crontab 任务
+crontab –l
+6. 删除当前用户所有的 crontab 任务
+crontab –r
+
+
+### 8.4 自定义UTF函数
+
+添加 app_logs_hive.jar 到类路径/usr/local/bigdata/hive-2.3.5/lib 下
+
+在 hive-site.xml 文件中添加：
+代码清单 3-16 hive-site.xml配置
+```xml
+<property>
+ <name>hive.aux.jars.path</name>
+ <value>file:///usr/local/bigdata/hive-2.3.5/lib/app_logs_hive.jar</value>
+</property>
+
+```
+由于之前添加过 json 的 jar 包所以修改为如下方式：
+代码清单 3-17 hive-site.xml配置
+```xml
+<property>
+ <name>hive.aux.jars.path</name>
+<value>file:///usr/local/bigdata/hive-2.3.5/lib/json-serde-1.3.8-jar-with-dependencies.jar,file:///usr/local/bigdata/hive-2.3.5/lib/app_logs_hive.jar</value>
+</property>
+```
+
+注册永久函数:
+```sql
+hive (default)>create function getdaybegin AS 'com.atguigu.hive.DayBeginUDF';
+hive (default)>create function getweekbegin AS 'com.atguigu.hive.WeekBeginUDF';
+hive (default)>create function getmonthbegin AS 'com.atguigu.hive.MonthBeginUDF';
+hive (default)>create function formattime AS 'com.atguigu.hive.FormatTimeUDF';
+
+```
+
+## 9 离线分析
+
+```sql
+use applogsdb;
+
+-- 1) 今天新增用户
+select
+count(*)
+from
+(select min(startTimeInMs) mintime
+from ext_startup_logs
+where appId = 'app00001'
+group by userId
+having mintime >= getdaybegin() and mintime < getdaybegin(1)
+)t ;
+
+--2) 昨天新增用户
+select
+count(*)
+from
+(select min(startTimeInMs) mintime
+from ext_startup_logs
+where appId = 'app00001'
+group by userId
+having mintime >= getdaybegin(-1) and mintime < getdaybegin()
+)t ;
+
+
+
+--3) 指定天新增用户
+select
+count(*)
+from
+(select min(startTimeInMs) mintime
+from ext_startup_logs
+where appId = 'app00001'
+group by userId
+having mintime >= getdaybegin('2017/11/10 00:00:00') and mintime < getdaybegin('2017/11/10 
+00:00:00',1)
+)t ;
+
+--2. 任意周新增用户
+--1) 本周新增用户
+select
+count(*)
+from
+(select min(startTimeInMs) mintime
+from ext_startup_logs
+where appId = 'app00001'
+group by userId
+having mintime >= getweekbegin() and mintime < getweekbegin(1)
+)t ;
+
+--2) 上一周新增用户
+select
+count(*)
+from
+(select min(startTimeInMs) mintime
+from ext_startup_logs
+where appId = 'app00001'
+group by userId
+having mintime >= getweekbegin(-1) and mintime < getweekbegin()
+)t ;
+
+
+```
+
+
+flume日志采集上线：每秒50M
+
+## 10 实时系统
+
+先启动hbase
+
+```s
+#启动集群
+$ /usr/local/bigdata/hbase-2.0.5/bin/start-hbase.sh
+$ /usr/local/bigdata/hbase-2.0.5/bin/hbase-daemon.sh start regionserver
+#启动hbase客户端
+$ /usr/local/bigdata/hbase-2.0.5/bin/hbase shell
+
+```
+
+
+## 10 部署
+
+kafka（Node02 Node03 Node04）
+
+第二层flume(Node03 Node04)
+
+第一层flume（Node02)
+
+启动hdfs yarn （Node02 Node03 Node04）
+
+启动hbase（Node02 Node03 Node04）
+>list
+>disable 表名
+>drop 表名
+>create 'online_city_click_count','StatisticData'
+
+
+>scan 'online_city_click_count'
