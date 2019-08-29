@@ -674,11 +674,24 @@ $ /usr/local/bigdata/hbase-2.0.5/bin/start-hbase.sh
 $ /usr/local/bigdata/hbase-2.0.5/bin/hbase-daemon.sh start regionserver
 #启动hbase客户端
 $ /usr/local/bigdata/hbase-2.0.5/bin/hbase shell
+```
+建表：
 
+```sql
+>list
+>disable 表名
+>drop 表名
+>create 'online_city_click_count','StatisticData'
 ```
 
+运行onlineScala.scala程序
+```sql
+>scan 'online_city_click_count'
+```
 
 ## 10 部署
+
+启动顺序
 
 kafka（Node02 Node03 Node04）
 
@@ -686,13 +699,12 @@ kafka（Node02 Node03 Node04）
 
 第一层flume（Node02)
 
-启动hdfs yarn （Node02 Node03 Node04）
+hdfs yarn （Node02 Node03 Node04）
 
-启动hbase（Node02 Node03 Node04）
->list
->disable 表名
->drop 表名
->create 'online_city_click_count','StatisticData'
+zookeeper （Node02 Node03 Node04）
 
+hbase（Node02 Node03 Node04）
 
->scan 'online_city_click_count'
+tomcat（Node02)
+
+nginx（Node02)
