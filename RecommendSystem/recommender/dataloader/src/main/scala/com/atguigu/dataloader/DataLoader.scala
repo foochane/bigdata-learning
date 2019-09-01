@@ -14,6 +14,13 @@ import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.InetSocketTransportAddress
 import org.elasticsearch.transport.client.PreBuiltTransportClient
 
+
+/**
+  * 导入数据到如下3张表：
+  * Movie[mid,name,descri,timelong,issue,shoot,language,genres,actors,directors]
+  * MovieRating[uid,mid,score,timestamp]
+  * Tag[uid,mid,tag,timestamp]
+  */
 object DataLoader {
 
   // 配置主机名:端口号的正则表达式
@@ -200,8 +207,8 @@ object DataLoader {
     movieDF.cache()
     tagDF.cache()
 
-    // 将数据保存到MongoDB
-    //storeDataInMySQL(movieDF, ratingDF, tagDF)
+    // 将数据保存到MySQL
+    storeDataInMySQL(movieDF, ratingDF, tagDF)
 
     //引入内置函数库
     import org.apache.spark.sql.functions._

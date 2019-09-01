@@ -21,6 +21,10 @@ object StatisticsRecommender {
       ConfigurationManager.config.getString("jdbc.user"),
       ConfigurationManager.config.getString("jdbc.password"))
 
+    /**
+      *   1 读取MovieRating[uid,mid,score,timestamp]表，
+      *     统计电影的平均评分 保存到表 AverageMovies[mid,avg]中
+      */
     // 获取原始用户评分表数据
     import spark.implicits._
     val ratingDS = spark.read
@@ -34,6 +38,7 @@ object StatisticsRecommender {
 
     ratingDS.cache()
 
+    //导入内存创建临时表
     ratingDS.createOrReplaceTempView("ratings")
 
     spark.udf.register("halfUp",(num:Double, scale:Int) => {
@@ -56,46 +61,52 @@ object StatisticsRecommender {
       .mode(SaveMode.Overwrite)
       .save()
 
-    // 获取原始电影信息表
-    val moviesDS = spark.read
-      .format("jdbc")
-      .option("url",mySqlConfig.url)
-      .option("dbtable",Constants.DB_MOVIE)
-      .option("user",mySqlConfig.user)
-      .option("password",mySqlConfig.password)
-      .load()
-      .as[Movie]
+    /**
+      *   2 读取表 Movie[mid,name,descri,timelong,issue,shoot,language,genres,actors,directors]
+      *     并关联表 AverageMovies[mid,avg]
+      *     统计Top10电影 保存到表 GenresTopMovies 中
+      */
+//    // 获取原始电影信息表
+//    val moviesDS = spark.read
+//      .format("jdbc")
+//      .option("url",mySqlConfig.url)
+//      .option("dbtable",Constants.DB_MOVIE)
+//      .option("user",mySqlConfig.user)
+//      .option("password",mySqlConfig.password)
+//      .load()
+//      .as[Movie]
+//
+//    moviesDS.createOrReplaceTempView("movies")
+//
+//    // 将电影平均评分表与电影信息表进行关联
+//    val movieWithScore = spark.sql("select a.mid, genres, if(isnull(b.avg),0,b.avg) score from movies a left join averageMovies b on a.mid = b.mid")
+//
+//    spark.udf.register("splitGe",(genres:String) => {
+//      genres.split("\\|")
+//    })
+//
+//    // 类别Top10电影统计
+//    val genresTop10Movies = spark.sql("select * from (select " +
+//      "mid," +
+//      "gen," +
+//      "score, " +
+//      "row_number() over(partition by gen order by score desc) rank " +
+//      "from " +
+//      "(select mid,score,explode(splitGe(genres)) gen from movieWithScore) genresMovies) rankGenresMovies " +
+//      "where rank <= 10")
+//
+//    // 将统计结果写入MySQL
+//    genresTop10Movies.write.format("jdbc")
+//      .option("url",mySqlConfig.url)
+//      .option("dbtable",Constants.DB_GENRES_TOP_MOVIES)
+//      .option("user",mySqlConfig.user)
+//      .option("password",mySqlConfig.password)
+//      .mode(SaveMode.Overwrite)
+//      .save()
 
-    moviesDS.createOrReplaceTempView("movies")
-
-    // 将电影平均评分表与电影信息表进行关联
-    val movieWithScore = spark.sql("select a.mid, genres, if(isnull(b.avg),0,b.avg) score from movies a left join averageMovies b on a.mid = b.mid")
-
-    spark.udf.register("splitGe",(genres:String) => {
-      genres.split("\\|")
-    })
-
-    // 类别Top10电影统计
-    val genresTop10Movies = spark.sql("select * from (select " +
-      "mid," +
-      "gen," +
-      "score, " +
-      "row_number() over(partition by gen order by score desc) rank " +
-      "from " +
-      "(select mid,score,explode(splitGe(genres)) gen from movieWithScore) genresMovies) rankGenresMovies " +
-      "where rank <= 10")
-
-    // 将统计结果写入MySQL
-    genresTop10Movies.write.format("jdbc")
-      .option("url",mySqlConfig.url)
-      .option("dbtable",Constants.DB_GENRES_TOP_MOVIES)
-      .option("user",mySqlConfig.user)
-      .option("password",mySqlConfig.password)
-      .mode(SaveMode.Overwrite)
-      .save()
-
-
-    // 统计优质电影
+    /**
+      *   3 统计优质电影 保存到 RateMoreMovies
+      */
     val youzhidianyingDF = spark.sql("SELECT " +
       "average.mid, " +
       "halfUp(average.avg,2) avg, " +
@@ -114,7 +125,9 @@ object StatisticsRecommender {
       .mode(SaveMode.Overwrite)
       .save()
 
-    // 近期TOP10热门电影统计
+    /**
+      *   4 近期TOP10热门电影统计 保存到 RateMoreRecentlyMovies
+      */
     val hotMovies = spark.sql("select " +
       "mid, " +
       "count(*) count  " +
@@ -134,7 +147,7 @@ object StatisticsRecommender {
       .mode(SaveMode.Overwrite)
       .save()
 
-    rateMoreRecently(spark)
+//    rateMoreRecently(spark)
 
     spark.stop()
   }
